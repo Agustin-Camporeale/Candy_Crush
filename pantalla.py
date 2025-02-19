@@ -121,13 +121,17 @@ def candy_crush(nombre, pantalla, fuente, imagen_1, imagen_2, imagen_3):
     volumen = 0.05
     sonido_acierto.set_volume(volumen)
     sonido_error.set_volume(volumen)
-
+    TIMER_EVENTO = pygame.USEREVENT + 1
+    pygame.time.set_timer(TIMER_EVENTO, 1000)
+    
     while tiempo_restante > 0:
         pantalla.fill(ORO)
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 pygame.quit()
                 return
+            elif evento.type == TIMER_EVENTO:  # Evento que reduce el tiempo
+                tiempo_restante -= 1
             elif evento.type == pygame.MOUSEBUTTONDOWN:
                 x, y = evento.pos
                 print(x,y)
