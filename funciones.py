@@ -14,21 +14,25 @@ def mostrar(dic:dict, clave:str):
 
 # Verificar si hay 3 numeros
 def verificar_vertical(lista:list, fila:int, columna:int):
-    contador = 0
-    for i in range(len(lista)-1):
-        if fila == 0 and lista[fila]["piezas"][columna] == lista[i]["piezas"][columna]: #Compara el primer numero de la columna con los 3 primeros
+    numero = lista[fila]["piezas"][columna]
+    contador = 1 
+    for i in range(fila - 1, -1, -1):
+        if lista[i]["piezas"][columna] == numero:
             contador += 1
-        elif fila == 1 and (lista[fila]["piezas"][columna] == lista[i + 1]["piezas"][columna] or lista[fila]["piezas"][columna] == lista[i]["piezas"][columna]): #Compara el segundo numero de la columna con las filas de abajo y con los 3 primeros 
+        else:
+            break 
+
+    for i in range(fila + 1, len(lista)):
+        if lista[i]["piezas"][columna] == numero:
             contador += 1
-        elif fila == 2 and (lista[fila]["piezas"][columna] == lista[i + 1]["piezas"][columna] or lista[fila]["piezas"][columna] == lista[i]["piezas"][columna]): #Compara el tercer numero de la columna con los ultimos 3 numeros y con los 3 primeros
-            contador += 1
-        elif fila == 3 and (lista[fila]["piezas"][columna] == lista[i + 1]["piezas"][columna]): #Compara el cuarto numero de la columna con los ultimos 3
-            contador += 1 
-    if contador == 3:
+        else:
+            break  
+
+    if contador >= 3:
         return True
     else:
         return False
-
+        
 # Guardar puntuación en archivo CSV
 def guardar_puntaje(nombre:str, lista:list):
     nombre += ".csv"
